@@ -1,0 +1,120 @@
+/* Hide default cursor only on non-mobile devices */
+@media (min-width: 769px) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Neural network outer ring */
+.cursor {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+}
+
+/* Neural connections */
+.cursor::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(0, 255, 255, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(255, 0, 255, 0.2) 0%, transparent 50%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-network 2s ease-in-out infinite;
+}
+
+/* AI nodes */
+.cursor-dot {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+}
+
+/* Central AI core */
+.cursor-dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #00ffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 20px #00ffff,
+    0 0 40px #00ffff,
+    0 0 60px #00ffff;
+  animation: ai-pulse 1.5s ease-in-out infinite;
+}
+
+/* Orbiting data points */
+.cursor-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  border: 2px solid transparent;
+  border-top: 2px solid #ff00ff;
+  border-right: 2px solid #00ffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: orbit-ai 3s linear infinite;
+}
+
+/* Neural network connections */
+.connection {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: rgba(0, 255, 255, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.1s ease;
+}
+
+/* Disable cursor animations on mobile */
+@media (max-width: 768px) {
+  .cursor,
+  .cursor-dot,
+  .connection {
+    display: none;
+  }
+  
+  /* Restore default cursor on mobile */
+  * {
+    cursor: auto !important;
+  }
+}
+
+@keyframes pulse-network {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+@keyframes ai-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; }
+}
+
+@keyframes orbit-ai {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}

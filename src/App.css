@@ -5,13 +5,89 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-color: #0a0a0a;
+  font-family: 'Fira Code', 'Roboto Mono', monospace;
 }
 
 .App {
-  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #0a0a0a;
+}
+
+/* Hero section - first layer (always visible at top) */
+.hero-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+/* Content wrapper - contains About and Skills */
+.content-wrapper {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  overflow: hidden;
+}
+
+.content-wrapper.visible {
+  transform: translateY(-100vh);
+}
+
+/* Scrollable content container */
+.scrollable-content {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Custom smooth scrollbar (hidden but functional) */
+.scrollable-content::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.scrollable-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hide default scrollbar for body */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth transitions for all elements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Loading animation for content */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scrollable-content > * {
+  animation: fadeInUp 0.8s ease-out forwards;
 }
